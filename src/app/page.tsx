@@ -5,7 +5,7 @@ import { EntityChart } from "@/components/EntityChart";
 import LcChart from "@/components/LcChart";
 import { McChart } from "@/components/McChart";
 import RatioTable from "@/components/RatioTable";
-import PieChart from "@/components/PieChart";
+import { RegionalPieChart } from "@/components/RegionalPieChart";
 import EntityStats from "@/components/EntityStats";
 import DashboardFilters from "@/components/DashboardFilters";
 import EntityRanking from "@/components/EntityRanking";
@@ -126,12 +126,14 @@ export default function Home() {
       <DashboardFilters product={product} />
 
       {/* First Row: Entity Ranking + Pie Chart + Entity Chart*/}
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6">
+        {" "}
+        {/* Responsive grid */}
         <div className="flex flex-col p-4 rounded-lg h-full">
           <EntityRanking />
         </div>
         <div className="flex flex-col p-4 rounded-lg h-full">
-          <PieChart />
+          <RegionalPieChart />
         </div>
         <div className="flex flex-col p-4 rounded-lg h-full">
           <EntityChart inputData={entityChartData} />
@@ -139,7 +141,9 @@ export default function Home() {
       </div>
 
       {/* Second Row: Funnel Chart + LcChart */}
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
+        {" "}
+        {/* Responsive grid */}
         <div className="bg-white p-4 rounded-lg shadow-md h-full">
           <FunnelChart stages={funnelStages} />
         </div>
@@ -149,7 +153,9 @@ export default function Home() {
       </div>
 
       {/* Third Row: Ratio Table + McChart */}
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
+        {" "}
+        {/* Responsive grid */}
         <div className="bg-white p-4 rounded-lg shadow-md h-full">
           <RatioTable data={ratioTableData} />
         </div>
