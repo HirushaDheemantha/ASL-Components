@@ -12,9 +12,10 @@ import {
 } from "@/components/ui/select";
 import { CalendarIcon } from "lucide-react";
 import { DateRange } from "react-day-picker";
-import { DatePickerWithRange } from "./DatePickerWithRange";
+import { DatePickerWithRange } from "./DatePickerWithRange"; // Correct import!
 
 export default function DashboardFilters({ product }: { product: string }) {
+  // We only need the dateRange state here if DashboardFilters needs to directly *use* the selected date range for its own logic, otherwise, you can even remove this. For now, let's keep it and assume DashboardFilters might need access to it.
   const [dateRange, setDateRange] = React.useState<DateRange | undefined>(
     undefined
   );
@@ -33,11 +34,26 @@ export default function DashboardFilters({ product }: { product: string }) {
     "Teaching",
     "Other",
   ];
-  const v_projects = [
-    "Volunteering Project1",
-    "Volunteering Project2",
-    "Volunteering Project3",
-    "Volunteering Project4",
+
+  const gv_projects = [
+    "Heartbeat",
+    "Fingerprint",
+    "Global Classroom",
+    "Discover",
+    "Happy Bus",
+    "Youth 4 Impact",
+    "Raise Your Voice",
+    "Skill Up!",
+    "On The Map",
+    "Equify",
+    "Eco City",
+    "Eat 4 Change",
+    "Green Leaders",
+    "Aquatica",
+    "Explorer",
+    "Rooted",
+    "Myself, My World",
+    "Scale Up!",
   ];
 
   const handleFunctionSelect = (value: string) => {
@@ -59,19 +75,37 @@ export default function DashboardFilters({ product }: { product: string }) {
   const lcLabel = isInternal ? "Home LC" : "Host LC";
   const projectLabel = isTalentTeacher ? "Workfield" : "Project";
 
+  // Function to handle date range changes from DatePickerWithRange
+  const handleDateRangeChange = (newDateRange: DateRange | undefined) => {
+    setDateRange(newDateRange); // Update the dateRange state in DashboardFilters (if needed)
+    console.log("Selected Date Range in DashboardFilters:", newDateRange);
+    // *** Here is where you would typically perform filtering logic based on the date range! ***
+  };
+
   return (
-    <div className="bg-white p-4 rounded-lg shadow-md flex gap-4 items-center justify-between">
+    <div className="bg-white p-4 rounded-lg shadow-md flex flex-wrap gap-4 items-center justify-between">
       <Select>
         <SelectTrigger className="w-48">
           <SelectValue placeholder="Local Entity" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="sri_lanka">AIESEC Sri Lanka</SelectItem>
-          <SelectItem value="global">Global AIESEC</SelectItem>
+          <SelectItem value="cc">CC</SelectItem>
+          <SelectItem value="cn">CN</SelectItem>
+          <SelectItem value="cs">CS</SelectItem>
+          <SelectItem value="kandy">Kandy</SelectItem>
+          <SelectItem value="nibm">NIBM</SelectItem>
+          <SelectItem value="nsbm">NSBM</SelectItem>
+          <SelectItem value="rajarata">Rajarata</SelectItem>
+          <SelectItem value="ruhuna">Ruhuna</SelectItem>
+          <SelectItem value="sliit">SLIIT</SelectItem>
         </SelectContent>
       </Select>
 
-      <DatePickerWithRange value={dateRange} onChange={setDateRange} />
+      {/* Integrate DatePickerWithRange Component */}
+      <DatePickerWithRange
+        value={dateRange} // Pass the dateRange state (if needed)
+        onChange={handleDateRangeChange} // Pass the handler function
+      />
 
       <Select onValueChange={handleFunctionSelect}>
         <SelectTrigger className="w-32">
@@ -112,7 +146,7 @@ export default function DashboardFilters({ product }: { product: string }) {
           </SelectTrigger>
           <SelectContent>
             {product === "volunteer"
-              ? v_projects.map((project) => (
+              ? gv_projects.map((project) => (
                   <SelectItem key={project} value={project}>
                     {project}
                   </SelectItem>
